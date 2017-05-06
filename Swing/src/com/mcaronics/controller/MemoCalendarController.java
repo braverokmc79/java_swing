@@ -1,7 +1,6 @@
-package com.mcaronics;
+package com.mcaronics.controller;
 
 import java.awt.EventQueue;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,20 +9,34 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import com.mcaronics.controller.AgriculturaController;
-import com.mcaronics.controller.JavaEducationController;
-import com.mcaronics.youtube.EmbedYoutube;
+import com.mcaronics.calendar.JDBCpro;
+import java.awt.FlowLayout;
+import javax.swing.BoxLayout;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.UIManager;
+import java.awt.Font;
 
-public class MacaronicsMain extends JFrame {
+public class MemoCalendarController extends JFrame {
 
 	private JPanel contentPane;
-	static MacaronicsMain frame;
+	static MemoCalendarController frame;
+	private JPanel panel;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new MacaronicsMain(null);
+					frame = new MemoCalendarController(null);
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -34,7 +47,7 @@ public class MacaronicsMain extends JFrame {
 	}
 
 
-	public MacaronicsMain(Object obj) {
+	public MemoCalendarController(Object obj) {
 		if(obj!=null){
 			AgriculturaController agri=(AgriculturaController)obj;
 			//((Window) agri).dispose();	
@@ -45,6 +58,9 @@ public class MacaronicsMain extends JFrame {
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
+		
+		contentPane.setBackground(new Color(51, 51, 51));
+		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -55,7 +71,7 @@ public class MacaronicsMain extends JFrame {
 				
 				AgriculturaController agriculturaController =new AgriculturaController(frame);
 				agriculturaController.setVisible(true);
-				MacaronicsMain.this.dispose();
+				MemoCalendarController.this.dispose();
 			}
 		});
 		btnNewButton.setBounds(25, 170, 137, 36);
@@ -109,9 +125,28 @@ public class MacaronicsMain extends JFrame {
 		button_6.setBounds(25, 534, 137, 46);
 		contentPane.add(button_6);
 		
+		panel = new JPanel();
+		panel.setBounds(248, 75, 733, 634);
+		panel.setLayout(null);
+		
+		JDBCpro jdbcType =new JDBCpro();
+		jdbcType.setBounds(12, 10, 709, 625);
+		panel.add(jdbcType);
+		jdbcType.setLayout(null);
+	
 		
 
+	
 		
+		contentPane.add(panel);
+		
+		JLabel lblNewLabel = new JLabel("\uC2A4\uCF00\uC974\uB7EC");
+		lblNewLabel.setFont(new Font("문체부 제목 바탕체", Font.PLAIN, 32));
+		lblNewLabel.setForeground(UIManager.getColor("Button.highlight"));
+		lblNewLabel.setBounds(516, 10, 145, 60);
+		contentPane.add(lblNewLabel);
+		
+				
 		
 	}
 	

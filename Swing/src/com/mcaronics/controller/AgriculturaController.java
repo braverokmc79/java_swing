@@ -73,7 +73,7 @@ public class AgriculturaController extends JFrame {
 		button.setBounds(12, 145, 118, 23);
 		contentPane.add(button);
 
-		JLabel lblNewLabel = new JLabel("\uB18D\uC5C5\uAE30\uC0C1\uC815\uBCF4 \uC11C\uBE44\uC2A4");
+		JLabel lblNewLabel = new JLabel("농업기상정보 서비스");
 		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 32));
 		lblNewLabel.setBounds(400, 10, 309, 52);
 		contentPane.add(lblNewLabel);
