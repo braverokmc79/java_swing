@@ -92,7 +92,7 @@ public class SpringEducationController extends JFrame {
 		MacaronicsMain.leftMenu(contentPane, SpringEducationController.this, SpringEducationController.this);
 		
 		
-		JList list = new JList(SpringDATA.titles);
+		final JList list = new JList(SpringDATA.titles);
 		//list.setBorder(new BevelBorder(FRAMEBITS));
 		list.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		list.addListSelectionListener(new ListSelectionListener() {

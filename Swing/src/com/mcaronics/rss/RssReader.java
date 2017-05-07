@@ -41,7 +41,7 @@ public class RssReader {
     
     
     public List<RssDTO> writeNew(String rssUrl) {
-    	List<RssDTO> items =new ArrayList<>();
+    	List<RssDTO> items =new ArrayList<RssDTO>();
     	 URL u =null;
     	 Document doc=null;
     	 NodeList nodes=null;
@@ -106,7 +106,7 @@ public class RssReader {
     
 
     public List<RssDTO> tiStroy(String rssUrl) {
-    	List<RssDTO> items =new ArrayList<>();
+    	List<RssDTO> items =new ArrayList<RssDTO>();
     	 URL u =null;
     	 Document doc=null;
     	 NodeList nodes=null;
@@ -164,7 +164,7 @@ public class RssReader {
     
     public List<RssDTO> writeNews(String url) {
        
-    	List<RssDTO> items =new ArrayList<>();
+    	List<RssDTO> items =new ArrayList<RssDTO>();
 	
     	try {
           

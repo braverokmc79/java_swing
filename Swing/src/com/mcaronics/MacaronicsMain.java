@@ -23,6 +23,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import com.mcaronics.common.HyperLink;
+import com.mcaronics.common.PDFWebViewer;
 import com.mcaronics.controller.AgriculturaController;
 import com.mcaronics.controller.CopyRightController;
 import com.mcaronics.controller.JavaEducationController;
@@ -285,10 +286,16 @@ public class MacaronicsMain extends JFrame {
 							String title=titles[i];
 							String url =links[i];
 							System.out.println(title + " : " +  url);
+				
 							
+
+				new PDFWebViewer().openURL(url);
+						
+				
+			/*	
 							YouTubeViewer youTubeViewer =new YouTubeViewer(title, url);
 							Thread thread =new Thread(youTubeViewer);
-							thread.start();
+							thread.start();*/
 						}
 					}
 					
@@ -305,7 +312,7 @@ public class MacaronicsMain extends JFrame {
 	
 	
 	
-    public static void leftMenu(JPanel contentPane, Object classNameThis, Object classFrame){
+    public static void leftMenu(JPanel contentPane, final Object classNameThis, Object classFrame){
 
     	
     	

@@ -76,12 +76,12 @@ public class WebEducationController extends JFrame {
 			
 		
 		
-		String[] titles=new String[WebDATA.titles.length];
+		final String[] titles=new String[WebDATA.titles.length];
 		for(int i=0; i<WebDATA.titles.length; i++){
 			titles[i]= (i+1) +" " + WebDATA.titles[i];
 		}
 		
-		JList list = new JList(titles);
+		final JList list = new JList(titles);
 		//list.setBorder(new BevelBorder(FRAMEBITS));
 		list.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		list.addListSelectionListener(new ListSelectionListener() {

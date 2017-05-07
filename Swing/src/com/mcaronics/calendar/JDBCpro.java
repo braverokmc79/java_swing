@@ -558,7 +558,7 @@ public class JDBCpro extends JPanel implements ActionListener
 
        
        public Map<String, String> parsing(String str){
-    	   Map<String, String> map =new HashMap<>();
+    	   Map<String, String> map =new HashMap<String, String>();
     	   
     	   StringTokenizer st =new StringTokenizer(str, "Ⅷ"); 
     	   int countToken =st.countTokens();

@@ -76,7 +76,7 @@ public class JavaEducationController extends JFrame {
 			
 		
 		
-		JList list = new JList(JavaDATA.titles);
+		final JList list = new JList(JavaDATA.titles);
 		//list.setBorder(new BevelBorder(FRAMEBITS));
 		list.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		list.addListSelectionListener(new ListSelectionListener() {

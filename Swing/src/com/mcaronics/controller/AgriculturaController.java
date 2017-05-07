@@ -107,17 +107,16 @@ public class AgriculturaController extends JFrame {
 				String hh = String.valueOf(new DecimalFormat("00").format(cal.get(Calendar.HOUR_OF_DAY)));
 				String ydmh = year + month + day + hh;
 
-				//new PDFWebViewer().openURL(
-			//			"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
+				new PDFWebViewer().openURL(
+						"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
 				
-//				YouTubeViewer youTubeViewer =new YouTubeViewer("수원서둔 관측", 
-//						"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
-//				
-				YouTubeViewer youTubeViewer =new YouTubeViewer("수원서둔 관측", 
-						"http://www.daum.net/");
+		//	YouTubeViewer youTubeViewer =new YouTubeViewer("수원서둔 관측", 
+				//		"http://weather.rda.go.kr/weather/observationGraph.jsp?time=2017050722&stncode=411801A001");
 				
-				Thread thread =new Thread(youTubeViewer);
-				thread.start();
+//				YouTubeViewer youTubeViewer =new YouTubeViewer("수원서둔 관측", 	"http://www.daum.net/");
+				
+		//		Thread thread =new Thread(youTubeViewer);
+		//		thread.start();
 				
 				
 			}
@@ -159,7 +158,7 @@ public class AgriculturaController extends JFrame {
 	public void tableShow(){
 		// 정보 가져오기
 		test();
-		Vector<Object> col = new Vector<>();
+		Vector<Object> col = new Vector<Object>();
 		col.add("번호");
 		col.add("지점명");
 		col.add("기온");
@@ -216,7 +215,7 @@ public class AgriculturaController extends JFrame {
 	}
 
 	private void parSing(String result) {
-		items = new Vector<>();
+		items = new Vector<Object>();
 
 		String data1 = result.replace("농업기상관측 - 농업기상(농진청)", ""); // 제목 제거
 		String data2 = data1.replace("\n\n", ""); // 엔터 2개 제거

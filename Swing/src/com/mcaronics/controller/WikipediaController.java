@@ -151,12 +151,12 @@ public class WikipediaController extends JFrame {
 		String txt=textArea.getText();
 		if(txt!=null && txt.trim().length() >0){
 		
-			Vector<Object> ii=new Vector<>();
-			Vector<Object> row=new Vector<>();
+			Vector<Object> ii=new Vector<Object>();
+			Vector<Object> row=new Vector<Object>();
 			row.add(txt);
 			ii.add(row);
 			
-			Vector<Object> col = new Vector<>();
+			Vector<Object> col = new Vector<Object>();
 			if(txtSearch.getText()!=null && txtSearch.getText().length() > 0){
 				col.add(txtSearch.getText());
 				
@@ -210,7 +210,7 @@ public class WikipediaController extends JFrame {
 	}
 
 	private void parSing(String result) {
-		items = new Vector<>();
+		items = new Vector<Object>();
 
 		String str =result.replaceAll("&&",  "\n\n");
 
