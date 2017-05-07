@@ -49,7 +49,7 @@ public class MacaronicsMain extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("농업 기상 관측");
+		JButton btnNewButton = new JButton("날씨");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -58,7 +58,7 @@ public class MacaronicsMain extends JFrame {
 				MacaronicsMain.this.dispose();
 			}
 		});
-		btnNewButton.setBounds(25, 170, 137, 36);
+		btnNewButton.setBounds(25, 119, 137, 36);
 		contentPane.add(btnNewButton);
 		
 		JButton btnHome = new JButton("Home");
@@ -82,7 +82,7 @@ public class MacaronicsMain extends JFrame {
 		javaButton.setBounds(25, 233, 137, 46);
 		contentPane.add(javaButton);
 		
-		JButton btnJsp = new JButton("웹프로그래밍");
+		JButton btnJsp = new JButton("웹프로그래밍 강좌");
 		btnJsp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -97,17 +97,40 @@ public class MacaronicsMain extends JFrame {
 		button_3.setBounds(25, 377, 137, 46);
 		contentPane.add(button_3);
 		
-		JButton button_4 = new JButton("\uB18D\uC5C5 \uAE30\uC0C1 \uAD00\uCE21");
+		JButton button_4 = new JButton("스케쥴러");
+		button_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		button_4.setBounds(25, 450, 137, 46);
 		contentPane.add(button_4);
 		
-		JButton button_5 = new JButton("\uB0A0\uC528");
-		button_5.setBounds(25, 123, 137, 31);
+		JButton button_5 = new JButton("위키 검색");
+		button_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		button_5.setBounds(25, 181, 137, 31);
 		contentPane.add(button_5);
 		
-		JButton button_6 = new JButton("\uB18D\uC5C5 \uAE30\uC0C1 \uAD00\uCE21");
+		JButton button_6 = new JButton("뉴스");
+		button_6.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+			}
+		});
 		button_6.setBounds(25, 534, 137, 46);
 		contentPane.add(button_6);
+		
+		JButton btnNewButton_1 = new JButton("RSS");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_1.setBounds(25, 619, 137, 58);
+		contentPane.add(btnNewButton_1);
 		
 		
 
