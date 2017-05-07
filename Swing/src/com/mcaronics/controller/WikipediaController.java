@@ -79,6 +79,7 @@ public class WikipediaController extends JFrame {
 		contentPane.add(scrollPane);
 		
 		textArea = new JTextArea();
+		//가로 스크롤 차단/
 		textArea.getScrollableTracksViewportWidth();
 		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		textArea.setLineWrap(true);        //활성화, 자동 줄 바꿈 기능 
@@ -154,8 +155,6 @@ public class WikipediaController extends JFrame {
 			Vector<Object> row=new Vector<>();
 			row.add(txt);
 			ii.add(row);
-			
-			
 			
 			Vector<Object> col = new Vector<>();
 			if(txtSearch.getText()!=null && txtSearch.getText().length() > 0){

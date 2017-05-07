@@ -9,17 +9,20 @@ import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
+import java.util.List;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
+import com.mcaronics.common.HyperLink;
 import com.mcaronics.controller.AgriculturaController;
 import com.mcaronics.controller.CopyRightController;
 import com.mcaronics.controller.JavaEducationController;
@@ -28,11 +31,33 @@ import com.mcaronics.controller.RssConstroller;
 import com.mcaronics.controller.SpringEducationController;
 import com.mcaronics.controller.WebEducationController;
 import com.mcaronics.controller.WikipediaController;
+import com.mcaronics.dto.JavaDATA;
+import com.mcaronics.dto.RssDTO;
+import com.mcaronics.rss.RssReader;
+import com.mcaronics.youtube.YouTubeViewer;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 
 public class MacaronicsMain extends JFrame {
 
 	private JPanel contentPane;
 	private static MacaronicsMain frame;
+	
+	private JList tab_1_List;
+
+	private JTextArea tab_1_textArea;
+	private JScrollPane scrollPane_1;
+	private JTextArea tab_2_textArea;
+	
+	int j=1;
+	int i=0;
+	int arraySize=0;
+	String[] titles;
+	String[] links;
+	List<RssDTO> rssData1, rssData2;
+	
 	
 	public static MacaronicsMain getInstance(){
 		if(frame==null){
@@ -82,7 +107,200 @@ public class MacaronicsMain extends JFrame {
 		leftMenu(contentPane, MacaronicsMain.this, frame);
 		
 
+		JLabel lblNewLabel = new JLabel("IT 교육 및 소식");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
+		
+		
+		lblNewLabel.setBounds(519, 10, 260, 52);
+		contentPane.add(lblNewLabel);
+		
+				
+		// 탭팬 
+		
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(179, 72, 612, 625);
+		contentPane.add(tabbedPane);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		tabbedPane.addTab("바보상자", null, scrollPane, null);
+		
+		tab_1_textArea = new JTextArea();
+		tab_1_textArea.setFont(new Font("Monospaced", Font.PLAIN, 17));
+		tab_1_textArea.setLineWrap(true);        //활성화, 자동 줄 바꿈 기능 
+		tab_1_textArea.setWrapStyleWord(true);            // 끊임없이 글을 기능 활성화 단행하다
+		
+		scrollPane.setViewportView(tab_1_textArea);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		tabbedPane.addTab("minwoohi", null, scrollPane_2, null);
+		
+		tab_2_textArea = new JTextArea();
+		tab_2_textArea.setFont(new Font("Monospaced", Font.PLAIN, 17));
+		tab_2_textArea.setLineWrap(true);        //활성화, 자동 줄 바꿈 기능 
+		tab_2_textArea.setWrapStyleWord(true); 
+		scrollPane_2.setViewportView(tab_2_textArea);
+		
+		
+		
+		dataInput();
+		
+		//첫번째 탭 불러오기
+		rss();
+		
+		//두번째 탭 불러오기
+		rss2();
+		
+		//우측 링크 불러오기
+		rightLink();
+		
 	}
+	
+	//자료 가져오기
+	public void dataInput(){
+		 RssReader reader= RssReader.getInstance();
+		
+		 try{
+		 	 //첫번째 탭 자료
+		 	
+		    String rssUrl ="http://blog.rss.naver.com/seilius";
+		    rssData1=reader.writeNew(rssUrl);
+			 
+			 //두번째 탭 자료
+			 String rssTxt ="./data/main.txt";
+	         StringBuffer strUrl =reader.readFileScanner(rssTxt,  RssReader.ENCODING);
+	         String[] urls = strUrl.toString().split(RssReader.NL);
+	   	     rssData2 =reader.writeNews(urls[0]);
+		 }catch(Exception e){
+			 e.printStackTrace();
+		 }
+		 
+		 // 배열의 사이즈가 확정되었으니 생성
+		 arraySize= rssData1.size()+rssData2.size();
+		 titles=new String[arraySize];
+		 links=new String[arraySize];
+
+	}
+	
+	
+	//첫번째 탭
+	public void rss(){
+       
+	    try {
+        	StringBuffer buffer =new StringBuffer();    		
+        	
+        	
+    		for(RssDTO dto : rssData1){
+    			  buffer.append(j + "번 \n");
+    				buffer.append( "제목 :  " + dto.getTitle() + "\n");
+    				//buffer.append("링크 :  " + dto.getLink() +"\n");
+    				buffer.append("날짜 : " + dto.getPubDate() +"\n");
+    				buffer.append("내용 : " + dto.getDescription() +"\n\n");
+    				buffer.append("----------------------------------------------------------");
+    				buffer.append("\n\n");
+    				
+    				titles[i]= j + " . "  + dto.getTitle();
+    				links[i]=dto.getLink();
+    				i++;
+    				j++;
+    		}
+        	
+    		//textPane.setText(buffer.toString());
+    		tab_1_textArea.setText(buffer.toString());
+	    	//HyperLink.linkify(text, URL, toolTip);
+    		//textArea1.setListData(rssData.toArray());
+	    	//textArea1.add(HyperLink.linkify("하이퍼 링크 입니다.", rssUrl, "하이퍼 링크 입니다."));
+	      } catch (Exception e) {
+	          e.printStackTrace();
+	      }
+
+	}
+	
+	
+	
+	public void rss2(){
+        try {
+        		StringBuffer buffer =new StringBuffer();
+    			int k=1;
+        		for(RssDTO dto : rssData2){
+        			     buffer.append(k + "번 \n");
+        				buffer.append("제목 :  " + dto.getTitle() + "\n");
+        				buffer.append("링크 :  " + dto.getLink() +"\n");
+        				buffer.append("날짜 : " + dto.getPubDate() +"\n");
+        				buffer.append("작성자 : " + dto.getAuthor() +"\n");
+        				buffer.append("내용 : " + dto.getDescription() +"\n\n");
+        				buffer.append("----------------------------------------------------------");
+        				buffer.append("\n\n");
+        				
+        				
+        				titles[i]= j + " . "  + dto.getTitle();
+        				links[i]=dto.getLink();
+        				
+        				i++;
+        				j++;
+        				k++;
+        		}
+ 
+        		tab_2_textArea.setText(buffer.toString());
+    		
+            
+      } catch (Exception e) {
+
+          System.out.println("지정된 파일을 찾을 수 없습니다. 파일을 확인하시기 바랍니다.");
+      }
+
+	}
+	
+	//우측 링크
+	public void rightLink(){
+	    
+	    scrollPane_1 = new JScrollPane();
+	    scrollPane_1.setBounds(803, 93, 203, 604);
+	    contentPane.add(scrollPane_1);
+	    
+	    
+		tab_1_List = new JList(titles);
+		tab_1_List.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tab_1_List.setBounds(805, 93, 201, 604);	
+		tab_1_List.setVisibleRowCount(10);
+		
+	    
+	    
+		//list.setBorder(new BevelBorder(FRAMEBITS));
+	    tab_1_List.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
+	    tab_1_List.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				
+				if(e.getValueIsAdjusting()){
+					int index =tab_1_List.getSelectedIndex();
+		/*			
+					System.out.println("index : " + list.getSelectedIndex());
+					System.out.println("list.getSelectedValue()  : " +list.getSelectedValue());
+					*/
+					for(int i=0; i<arraySize; i++){
+						if(index==i){
+							String title=titles[i];
+							String url =links[i];
+							System.out.println(title + " : " +  url);
+							
+							YouTubeViewer youTubeViewer =new YouTubeViewer(title, url);
+							Thread thread =new Thread(youTubeViewer);
+							thread.start();
+						}
+					}
+					
+				}
+			}
+		});
+		
+	    scrollPane_1.setViewportView(tab_1_List);
+	}
+	
+	
+	
 	
 	
 	
@@ -293,7 +511,10 @@ public class MacaronicsMain extends JFrame {
 		
     }
     
-	
+    
+
+    
+    
 }
 
 

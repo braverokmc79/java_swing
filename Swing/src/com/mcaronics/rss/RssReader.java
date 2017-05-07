@@ -28,7 +28,7 @@ public class RssReader {
     public static String ENCODING = "UTF-8";
     public static String NL = System.getProperty("line.separator");
   
-    private RssReader() {
+    public RssReader() {
     }
   
     public static RssReader getInstance() {
@@ -38,27 +38,104 @@ public class RssReader {
         return instance;
     }
   
-    public void writeNews() {
-        try {
+    
+    
+    public List<RssDTO> writeNew(String rssUrl) {
+    	List<RssDTO> items =new ArrayList<>();
+    	 URL u =null;
+    	 Document doc=null;
+    	 NodeList nodes=null;
+    	 NodeList nodeChannel=null;
+    	 
+    	try {
 
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 //           URL u = new URL("http://mutasyon.net/cs/blogs/hakkiocal/rss.aspx");
 //            URL u = new URL("http://rss.joins.com/joins_news_list.xml");
 //            URL u = new URL("http://feeds.feedburner.com/afriken");
  //           URL u = new URL("http://blog.rss.naver.com/jeffyang.xml");
-            URL u = new URL("http://fs.jtbc.joins.com/RSS/newsflash.xml");
+             u = new URL(rssUrl);
            
             
             
-            Document doc = builder.parse(u.openStream());
+            doc = builder.parse(u.openStream());
           
-            NodeList nodes = doc.getElementsByTagName("item");
-            NodeList nodeChannel = doc.getElementsByTagName("channel");
+            nodes = doc.getElementsByTagName("item");
+            nodeChannel = doc.getElementsByTagName("channel");
           
             for(int i=0;i<nodes.getLength();i++) {
-              
+                
                 Element element = (Element)nodes.item(i);
               
+                RssDTO rss =new RssDTO();
+                rss.setTitle(getElementValue(element,"title"));
+                rss.setLink(getElementValue(element,"link"));
+                rss.setPubDate(getElementValue(element,"pubDate"));
+                rss.setDescription(getElementValue(element,"description"));
+                
+                items.add(rss);
+                
+//                System.out.println("Title: " + getElementValue(element,"title"));
+//                System.out.println("Category: " + getElementValue(element,"category"));
+//                System.out.println("Link: " + getElementValue(element,"link"));
+//                System.out.println("Publish Date: " + getElementValue(element,"pubDate"));
+//                System.out.println("author: " + getElementValue(element,"author"));
+//                System.out.println("comment: " + getElementValue(element,"comments"));
+//                System.out.println("guid: " + getElementValue(element,"guid"));
+//                System.out.println("language: " + getElementValue(element,"language"));
+//                System.out.println("description: " + getElementValue(element,"description"));
+//                System.out.println();
+            }//for  
+            
+            
+            
+            
+        }//try
+        catch(Exception ex) {
+        	ex.printStackTrace();  
+        }finally{
+        	//if(nodeChannel!=null)u.c
+        }
+      
+        return items;
+    }
+  
+    
+    
+    
+    
+
+    public List<RssDTO> tiStroy(String rssUrl) {
+    	List<RssDTO> items =new ArrayList<>();
+    	 URL u =null;
+    	 Document doc=null;
+    	 NodeList nodes=null;
+    	 NodeList nodeChannel=null;
+    	 
+    	try {
+
+             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+             u = new URL(rssUrl);
+           
+            
+            
+            doc = builder.parse(u.openStream());
+          
+            nodes = doc.getElementsByTagName("channel");
+            nodeChannel = doc.getElementsByTagName("item");
+          
+            for(int i=0;i<nodes.getLength();i++) {
+                
+                Element element = (Element)nodes.item(i);
+              
+//                RssDTO rss =new RssDTO();
+//                rss.setTitle(getElementValue(element,"title"));
+//                rss.setLink(getElementValue(element,"link"));
+//                rss.setPubDate(getElementValue(element,"pubDate"));
+//                rss.setDescription(getElementValue(element,"description"));
+//                
+//                items.add(rss);
+                
                 System.out.println("Title: " + getElementValue(element,"title"));
                 System.out.println("Category: " + getElementValue(element,"category"));
                 System.out.println("Link: " + getElementValue(element,"link"));
@@ -69,16 +146,22 @@ public class RssReader {
                 System.out.println("language: " + getElementValue(element,"language"));
                 System.out.println("description: " + getElementValue(element,"description"));
                 System.out.println();
-                
-                
-            }//for          
+            }//for  
+            
+            
+            
+            
         }//try
         catch(Exception ex) {
-        ex.printStackTrace();  
+        	ex.printStackTrace();  
+        }finally{
+        	//if(nodeChannel!=null)u.c
         }
       
+        return items;
     }
-  
+    
+    
     public List<RssDTO> writeNews(String url) {
        
     	List<RssDTO> items =new ArrayList<>();
@@ -99,7 +182,10 @@ public class RssReader {
               
                 RssDTO rss =new RssDTO();
                 rss.setTitle(getElementValue(element,"title"));
+                rss.setCategory(getElementValue(element,"category")+"");
                 rss.setLink(getElementValue(element,"link"));
+                rss.setAuthor(getElementValue(element,"author")+"");
+                rss.setComments(getElementValue(element,"comments")+"");
                 rss.setPubDate(getElementValue(element,"pubDate"));
                 rss.setDescription(getElementValue(element,"description"));
                 
