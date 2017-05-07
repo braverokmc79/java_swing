@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.w3c.dom.css.RGBColor;
 
+import com.mcaronics.MacaronicsMain;
 import com.mcaronics.dto.JavaDATA;
 import com.mcaronics.dto.WebDATA;
 import com.mcaronics.youtube.YouTubeViewer;
@@ -43,27 +44,20 @@ public class WebEducationController extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					WebEducationController frame = new WebEducationController();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the frame.
-	 */
-	public WebEducationController() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	private static WebEducationController controller;
+
+	public static WebEducationController getInstance(){
+		if(controller==null){
+			controller= new WebEducationController();
+		}
+		return controller;
+	}
+	
+	
+	
+	private WebEducationController() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
@@ -74,8 +68,13 @@ public class WebEducationController extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(187, 97, 803, 621);
+		scrollPane.setBounds(179, 72, 827, 625);
 		contentPane.add(scrollPane);
+		
+		//좌측 메뉴	
+		MacaronicsMain.leftMenu(contentPane, WebEducationController.this, WebEducationController.this);
+			
+		
 		
 		String[] titles=new String[WebDATA.titles.length];
 		for(int i=0; i<WebDATA.titles.length; i++){
@@ -84,7 +83,7 @@ public class WebEducationController extends JFrame {
 		
 		JList list = new JList(titles);
 		//list.setBorder(new BevelBorder(FRAMEBITS));
-		list.setFont(new Font("굴림", Font.PLAIN, 20));
+		list.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		list.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -118,18 +117,14 @@ public class WebEducationController extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("웹프로그래밍");
 		lblNewLabel.setForeground(new Color(255, 255,255));
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 33));
-		lblNewLabel.setBounds(509, 26, 241, 60);
+		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
+		lblNewLabel.setBounds(509, 10, 241, 60);
 		contentPane.add(lblNewLabel);
 		
-	
-		JButton button1 = new JButton("New button");
-		button1.setBounds(136, 479, 196, 192);
-		
-		JButton button2 = new JButton("New button");
-		button2.setBounds(136, 579, 196, 192);
-		
+
 	}
+	
+	
 }
 
 

@@ -1,6 +1,10 @@
 package com.mcaronics;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +15,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.mcaronics.controller.AgriculturaController;
+import com.mcaronics.controller.CopyRightController;
 import com.mcaronics.controller.JavaEducationController;
-import com.mcaronics.youtube.EmbedYoutube;
+import com.mcaronics.controller.MemoCalendarController;
+import com.mcaronics.controller.RssConstroller;
+import com.mcaronics.controller.SpringEducationController;
+import com.mcaronics.controller.WebEducationController;
+import com.mcaronics.controller.WikipediaController;
 
 public class MacaronicsMain extends JFrame {
 
@@ -24,6 +33,14 @@ public class MacaronicsMain extends JFrame {
 			public void run() {
 				try {
 					frame = new MacaronicsMain(null);
+				 	
+					//아이콘 설정
+					frame.setTitle("Macaronics 교육 및 소식");
+					Toolkit toolkit = Toolkit.getDefaultToolkit();
+					Image img = toolkit.getImage("icon.png");
+					frame.setIconImage(img);
+					
+					
 					frame.setVisible(true);
 					
 				} catch (Exception e) {
@@ -34,110 +51,192 @@ public class MacaronicsMain extends JFrame {
 	}
 
 
+
 	public MacaronicsMain(Object obj) {
 		if(obj!=null){
 			AgriculturaController agri=(AgriculturaController)obj;
 			//((Window) agri).dispose();	
 			
 		}
-				
+		
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
+		
+		contentPane.setBackground(new Color(51, 51, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		
+		leftMenu(contentPane, MacaronicsMain.this, frame);
+	}
+	
+	
+	
+	
+    public static void leftMenu(JPanel contentPane, Object classNameThis, Object classFrame){
+		
+		JButton btnHome = new JButton("Home");
+		btnHome.setBackground(new Color(249 , 68 , 90));
+		btnHome.setForeground(new Color(255, 255, 255));
+		btnHome.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MacaronicsMain macaronicsMain=new MacaronicsMain(classFrame);
+				macaronicsMain.setVisible(true);
+				((Window) classNameThis).dispose();
+			}
+			
+		});
+		btnHome.setBounds(25, 65, 137, 46);
+		contentPane.add(btnHome);
+		
+		
 		JButton btnNewButton = new JButton("날씨");
+		btnNewButton.setBackground(new Color(12 , 155 , 175));
+		btnNewButton.setForeground(new Color(255, 255, 255));
+		
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				AgriculturaController agriculturaController =new AgriculturaController(frame);
+				AgriculturaController agriculturaController =AgriculturaController.getInstance();
+				iconSetting(agriculturaController);
 				agriculturaController.setVisible(true);
-				MacaronicsMain.this.dispose();
+				((Window) classNameThis).dispose();
 			}
 		});
-		btnNewButton.setBounds(25, 119, 137, 36);
+		btnNewButton.setBounds(25, 135, 137, 46);
 		contentPane.add(btnNewButton);
 		
-		JButton btnHome = new JButton("Home");
-		btnHome.addActionListener(new ActionListener() {
+
+		JButton btnWiki = new JButton("위키 검색");
+		btnWiki.setBackground(new Color(12 , 155 , 175));
+		btnWiki.setForeground(new Color(255, 255, 255));
+		btnWiki.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				WikipediaController wiki =WikipediaController.getInstance();
+				iconSetting(wiki);
+				wiki.setVisible(true);
+				((Window)classNameThis).dispose();
 			}
 		});
-		btnHome.setBounds(25, 64, 137, 36);
-		contentPane.add(btnHome);
+		btnWiki.setBounds(25, 205, 137, 46);
+		contentPane.add(btnWiki);
+		
+		
+		
 		
 		JButton javaButton = new JButton("자바 강좌");
+		javaButton.setBackground(new Color(12 , 155 , 175));
+		javaButton.setForeground(new Color(255, 255, 255));
 		javaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				JavaEducationController java =new JavaEducationController();
+				JavaEducationController java = JavaEducationController.getInstance();
+				iconSetting(java);
 				java.setVisible(true);
+				((Window) classNameThis).dispose();
 				
 			}
 		});
-		javaButton.setBounds(25, 233, 137, 46);
+		javaButton.setBounds(25, 275, 137, 46);
 		contentPane.add(javaButton);
 		
+		
 		JButton btnJsp = new JButton("웹프로그래밍 강좌");
+		btnJsp.setBackground(new Color(12 , 155 , 175));
+		btnJsp.setForeground(new Color(255, 255, 255));
 		btnJsp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				WebEducationController web = WebEducationController.getInstance();
+				iconSetting(web);
+				web.setVisible(true);
+				((Window)classNameThis).dispose();
+				
 			}
 		});
 		
 		
-		btnJsp.setBounds(25, 304, 137, 46);
+		btnJsp.setBounds(25, 345, 137, 46);
 		contentPane.add(btnJsp);
 		
-		JButton button_3 = new JButton("\uC2A4\uD504\uB9C1 \uAC15\uC88C");
-		button_3.setBounds(25, 377, 137, 46);
-		contentPane.add(button_3);
-		
-		JButton button_4 = new JButton("스케쥴러");
-		button_4.addActionListener(new ActionListener() {
+		JButton btnSpring = new JButton("스프링 강좌");
+		btnSpring.setBackground(new Color(12 , 155 , 175));
+		btnSpring.setForeground(new Color(255, 255, 255));
+		btnSpring.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				SpringEducationController spring= SpringEducationController.getInstance();
+				iconSetting(spring);
+				spring.setVisible(true);
+				((Window)classNameThis).dispose();
+			}
+		});
+		btnSpring.setBounds(25, 415, 137, 46);
+		contentPane.add(btnSpring);
+		
+		JButton btnScheduling = new JButton("스케쥴러");
+		btnScheduling.setBackground(new Color(12 , 155 , 175));
+		btnScheduling.setForeground(new Color(255, 255, 255));
+		btnScheduling.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				MemoCalendarController memo = MemoCalendarController.getInstance();
+				iconSetting(memo);
+				memo.setVisible(true);
+				((Window)classNameThis).dispose();
 				
 			}
 		});
-		button_4.setBounds(25, 450, 137, 46);
-		contentPane.add(button_4);
-		
-		JButton button_5 = new JButton("위키 검색");
-		button_5.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		button_5.setBounds(25, 181, 137, 31);
-		contentPane.add(button_5);
-		
-		JButton button_6 = new JButton("오늘의 뉴스");
-		button_6.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-			}
-		});
-		button_6.setBounds(25, 534, 137, 46);
-		contentPane.add(button_6);
-		
-		JButton btnNewButton_1 = new JButton("Copyright");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton_1.setBounds(25, 619, 137, 58);
-		contentPane.add(btnNewButton_1);
+		btnScheduling.setBounds(25, 485, 137, 46);
+		contentPane.add(btnScheduling);
 		
 		
 
 		
 		
+		JButton btnNews = new JButton("오늘의 뉴스");
+		btnNews.setBackground(new Color(12 , 155 , 175));
+		btnNews.setForeground(new Color(255, 255, 255));
+		btnNews.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RssConstroller rss = RssConstroller.getInstance();
+				iconSetting(rss);
+				rss.setVisible(true);
+			   ((Window)classNameThis).dispose();
+			}
+		});
+		btnNews.setBounds(25, 555, 137, 46);
+		contentPane.add(btnNews);
+		
+		
+		JButton btnCopyright = new JButton("Copyright");
+		btnCopyright.setBackground(new Color(12 , 155 , 175));
+		btnCopyright.setForeground(new Color(255, 255, 255));
+		btnCopyright.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CopyRightController copy =new CopyRightController();
+				iconSetting(copy);
+				copy.setVisible(true);
+				((Window)classNameThis).dispose();
+			}
+		});
+		btnCopyright.setBounds(25, 625, 137, 46);
+		contentPane.add(btnCopyright);
 	}
 	
+	
+    public static void iconSetting(Object frame){
+		//아이콘 설정
+		((Frame) frame).setTitle("Macaronics 교육 및 소식");
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Image img = toolkit.getImage("icon.png");
+		((Frame) frame).setIconImage(img);
+		
+		
+    }
+    
 	
 }
 

@@ -12,6 +12,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.w3c.dom.css.RGBColor;
 
+import com.mcaronics.MacaronicsMain;
 import com.mcaronics.dto.JavaDATA;
 import com.mcaronics.youtube.YouTubeViewer;
 
@@ -42,44 +43,42 @@ public class JavaEducationController extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JavaEducationController frame = new JavaEducationController();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static JavaEducationController javaEducationController;
 
-	/**
-	 * Create the frame.
-	 */
-	public JavaEducationController() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public static JavaEducationController getInstance(){
+		if(javaEducationController==null){
+			javaEducationController=new JavaEducationController();
+		}
+		return javaEducationController;
+	}
+	
+	
+	private JavaEducationController() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(51, 51, 51));
+		
 		
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(187, 97, 803, 621);
+		scrollPane.setBounds(179, 72, 827, 625);
 		contentPane.add(scrollPane);
 		
 
+		
+		//좌측 메뉴	
+		MacaronicsMain.leftMenu(contentPane, JavaEducationController.this, JavaEducationController.this);
+			
+		
+		
 		JList list = new JList(JavaDATA.titles);
 		//list.setBorder(new BevelBorder(FRAMEBITS));
-		list.setFont(new Font("굴림", Font.PLAIN, 20));
+		list.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		list.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -113,17 +112,11 @@ public class JavaEducationController extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("자바 강좌");
 		lblNewLabel.setForeground(new Color(255, 255,255));
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 33));
-		lblNewLabel.setBounds(509, 26, 162, 60);
+		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
+		lblNewLabel.setBounds(509, 10, 162, 60);
 		contentPane.add(lblNewLabel);
 		
 	
-		JButton button1 = new JButton("New button");
-		button1.setBounds(136, 479, 196, 192);
-		
-		JButton button2 = new JButton("New button");
-		button2.setBounds(136, 579, 196, 192);
-		
 	}
 }
 

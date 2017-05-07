@@ -12,10 +12,7 @@ import javax.swing.event.ListSelectionListener;
 
 import org.w3c.dom.css.RGBColor;
 
-import com.mcaronics.MacaronicsMain;
 import com.mcaronics.dto.JavaDATA;
-import com.mcaronics.dto.SpringDATA;
-import com.mcaronics.dto.WebDATA;
 import com.mcaronics.youtube.YouTubeViewer;
 
 import chrriis.dj.nativeswing.swtimpl.NativeInterface;
@@ -41,27 +38,18 @@ import javax.swing.AbstractListModel;
 import java.awt.Font;
 import javax.swing.UIManager;
 
-public class SpringEducationController extends JFrame {
+public class CopyRightController extends JFrame {
 
 	private JPanel contentPane;
 
-	
-	private static SpringEducationController springEducationController;
-
-	public static SpringEducationController getInstance(){
-		if(springEducationController==null){
-			springEducationController= new SpringEducationController();
-		}
-		return springEducationController;
-	}
-	
-	
-	
-/*	public static void main(String[] args) {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SpringEducationController frame = new SpringEducationController();
+					CopyRightController frame = new CopyRightController();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,12 +57,12 @@ public class SpringEducationController extends JFrame {
 			}
 		});
 	}
-*/
-	
-	
-	private SpringEducationController() {
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+	/**
+	 * Create the frame.
+	 */
+	public CopyRightController() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
@@ -85,16 +73,13 @@ public class SpringEducationController extends JFrame {
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(179, 72, 827, 625);
+		scrollPane.setBounds(187, 97, 803, 621);
 		contentPane.add(scrollPane);
 		
-		//좌측 메뉴	
-		MacaronicsMain.leftMenu(contentPane, SpringEducationController.this, SpringEducationController.this);
-		
-		
-		JList list = new JList(SpringDATA.titles);
+
+		JList list = new JList(JavaDATA.titles);
 		//list.setBorder(new BevelBorder(FRAMEBITS));
-		list.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
+		list.setFont(new Font("굴림", Font.PLAIN, 20));
 		list.addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -102,12 +87,15 @@ public class SpringEducationController extends JFrame {
 				
 				if(e.getValueIsAdjusting()){
 					int index =list.getSelectedIndex();
-
-					for(int i=0; i<WebDATA.urls.length; i++){
+		/*			
+					System.out.println("index : " + list.getSelectedIndex());
+					System.out.println("list.getSelectedValue()  : " +list.getSelectedValue());
+					*/
+					for(int i=0; i<JavaDATA.urls.length; i++){
 						if(index==i){
-							String title=SpringDATA.titles[i];
-							String url =SpringDATA.urls[i];
-							//System.out.println(title + " : " +  url);
+							String title=JavaDATA.titles[i];
+							String url =JavaDATA.urls[i];
+							System.out.println(title + " : " +  url);
 							
 							YouTubeViewer youTubeViewer =new YouTubeViewer(title, url);
 							Thread thread =new Thread(youTubeViewer);
@@ -123,13 +111,18 @@ public class SpringEducationController extends JFrame {
 		
 		scrollPane.setViewportView(list);
 		
-		JLabel lblNewLabel = new JLabel("스프링");
+		JLabel lblNewLabel = new JLabel("자바 강좌");
 		lblNewLabel.setForeground(new Color(255, 255,255));
-		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
-		lblNewLabel.setBounds(519, 10, 113, 60);
+		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 33));
+		lblNewLabel.setBounds(509, 26, 162, 60);
 		contentPane.add(lblNewLabel);
 		
 	
+		JButton button1 = new JButton("New button");
+		button1.setBounds(136, 479, 196, 192);
+		
+		JButton button2 = new JButton("New button");
+		button2.setBounds(136, 579, 196, 192);
 		
 	}
 }

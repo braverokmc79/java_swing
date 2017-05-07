@@ -1,5 +1,6 @@
 package com.mcaronics.controller;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +33,17 @@ import com.mcaronics.common.PrintComponent;
 
 public class AgriculturaController extends JFrame {
 
+	
+	private static AgriculturaController agriculturaController;
+
+	public static AgriculturaController getInstance(){
+		if(agriculturaController==null){
+			agriculturaController=new AgriculturaController();
+		}
+		return agriculturaController;
+	}
+	
+	
 	private JPanel contentPane;
 
 	Vector<Object> items;
@@ -45,40 +57,40 @@ public class AgriculturaController extends JFrame {
 
 	JScrollPane scrollPane;
 	
-	public AgriculturaController(Object main) {
-		this.main = (MacaronicsMain) main;
+	private AgriculturaController() {
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(51, 51, 51));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(142, 72, 864, 625);
+		scrollPane.setBounds(179, 72, 827, 625);
 		contentPane.add(scrollPane);
 
 		// 정보 가져오기
 		tableShow();
 		
-
-		button = new JButton("농업 기상 관측");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		button.setBounds(12, 145, 118, 23);
-		contentPane.add(button);
+		//좌측 메뉴	
+		MacaronicsMain.leftMenu(contentPane, AgriculturaController.this, AgriculturaController.this);
+			
+		
+	
 
 		JLabel lblNewLabel = new JLabel("농업기상정보 서비스");
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 32));
-		lblNewLabel.setBounds(400, 10, 309, 52);
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
+		lblNewLabel.setBounds(467, 10, 266, 52);
 		contentPane.add(lblNewLabel);
 
 		btnNewButton = new JButton("수원서둔 관측");
+		btnNewButton.setBackground(new Color(247, 186, 0));
+		btnNewButton.setForeground(new Color(255, 255, 255));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -95,23 +107,13 @@ public class AgriculturaController extends JFrame {
 						"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
 			}
 		});
-		btnNewButton.setBounds(218, 39, 118, 23);
+		btnNewButton.setBounds(221, 21, 118, 45);
 		contentPane.add(btnNewButton);
-
-		btnNewButton_1 = new JButton("Home");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				MacaronicsMain main = new MacaronicsMain(AgriculturaController.this);
-				main.setVisible(true);
-				AgriculturaController.this.dispose();
-
-			}
-		});
-		btnNewButton_1.setBounds(12, 81, 118, 23);
-		contentPane.add(btnNewButton_1);
+		
 		
 		btnNewButton_2 = new JButton("프린트");
+		btnNewButton_2.setBackground(new Color(247, 186, 0));
+		btnNewButton_2.setForeground(new Color(255, 255, 255));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -127,8 +129,10 @@ public class AgriculturaController extends JFrame {
 				
 			}
 		});
-		btnNewButton_2.setBounds(857, 32, 97, 23);
+		btnNewButton_2.setBounds(857, 21, 97, 45);
 		contentPane.add(btnNewButton_2);
+		
+		
 	}
 
 	

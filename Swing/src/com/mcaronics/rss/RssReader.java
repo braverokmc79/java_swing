@@ -26,7 +26,7 @@ public class RssReader {
 
     private static RssReader instance = null;
     public static String ENCODING = "UTF-8";
-    static String NL = System.getProperty("line.separator");
+    public static String NL = System.getProperty("line.separator");
   
     private RssReader() {
     }

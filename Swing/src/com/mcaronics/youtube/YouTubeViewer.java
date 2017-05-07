@@ -1,6 +1,9 @@
 package com.mcaronics.youtube;
 
 import java.awt.BorderLayout;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -49,6 +52,10 @@ public class YouTubeViewer implements Runnable {
 	    SwingUtilities.invokeLater(new Runnable() {
 	        public void run() {
 	            JFrame frame = new JFrame(title);
+	            Toolkit toolkit = Toolkit.getDefaultToolkit();
+	    		Image img = toolkit.getImage("icon.png");
+	    		frame.setIconImage(img);
+	            
 	            frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 	            frame.getContentPane().add(getBrowserPanel(), BorderLayout.CENTER);
 	            frame.setSize(800, 600);

@@ -33,6 +33,14 @@ import javax.swing.JTextField;
 
 public class WikipediaController extends JFrame {
 
+	private static WikipediaController wikipediaController ;
+
+	public static WikipediaController getInstance(){
+		if(wikipediaController==null){
+			wikipediaController=new WikipediaController();
+		}
+		return wikipediaController;
+	}
 
 	static WikipediaController frame;
 	
@@ -41,11 +49,8 @@ public class WikipediaController extends JFrame {
 
 	Vector<Object> items;
 	private JTable agTable;
-	
-	private JButton button;
-	private JButton btnNewButton_1;
 
-	private MacaronicsMain main;
+	//private MacaronicsMain main;
 
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
@@ -55,8 +60,8 @@ public class WikipediaController extends JFrame {
 	private String txtS;
 	
 	
-	public WikipediaController(Object main) {
-		this.main = (MacaronicsMain) main;
+	private WikipediaController() {
+		
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -70,12 +75,12 @@ public class WikipediaController extends JFrame {
 		contentPane.setLayout(null);
 
 		scrollPane = new JScrollPane();
-		scrollPane.setBounds(142, 72, 864, 625);
+		scrollPane.setBounds(179, 72, 827, 625);
 		contentPane.add(scrollPane);
 		
 		textArea = new JTextArea();
 		textArea.getScrollableTracksViewportWidth();
-		textArea.setFont(new Font("휴먼모음T", Font.PLAIN, 20));
+		textArea.setFont(new Font("맑은 고딕", Font.PLAIN, 17));
 		textArea.setLineWrap(true);        //활성화, 자동 줄 바꿈 기능 
 		textArea.setWrapStyleWord(true);            // 끊임없이 글을 기능 활성화 단행하다
 		
@@ -83,42 +88,26 @@ public class WikipediaController extends JFrame {
 
 		// 정보 가져오기
 		tableShow();
+
 		
-
-		button = new JButton("농업 기상 관측");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
-		button.setBounds(12, 145, 118, 23);
-		contentPane.add(button);
-
+		//좌측 메뉴	
+		MacaronicsMain.leftMenu(contentPane, WikipediaController.this, WikipediaController.this);
+			
+		
+		
 		JLabel lblNewLabel = new JLabel("위키백과 요약 검색");
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 32));
-		lblNewLabel.setBounds(528, 14, 298, 52);
+		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
+		lblNewLabel.setBounds(594, 10, 298, 52);
 		contentPane.add(lblNewLabel);
-
-		btnNewButton_1 = new JButton("Home");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				MacaronicsMain main = new MacaronicsMain(WikipediaController.this);
-				main.setVisible(true);
-				WikipediaController.this.dispose();
-
-			}
-		});
-		btnNewButton_1.setBounds(12, 81, 118, 23);
-		contentPane.add(btnNewButton_1);
 		
 		txtSearch = new JTextField();
-		txtSearch.setBounds(142, 33, 200, 29);
+		txtSearch.setBounds(205, 21, 200, 45);
 		contentPane.add(txtSearch);
 		txtSearch.setColumns(10);
 		
 		JButton btnSearch = new JButton("검색");
+		btnSearch.setForeground(Color.WHITE);
 		btnSearch.setBackground(Color.ORANGE);
 		btnSearch.addActionListener(new ActionListener() {
 			@SuppressWarnings("null")
@@ -147,7 +136,7 @@ public class WikipediaController extends JFrame {
 				
 			}
 		});
-		btnSearch.setBounds(367, 32, 103, 30);
+		btnSearch.setBounds(435, 21, 103, 45);
 		contentPane.add(btnSearch);
 		
 		
@@ -224,7 +213,7 @@ public class WikipediaController extends JFrame {
 	private void parSing(String result) {
 		items = new Vector<>();
 
-		String str =result.replaceAll("&&",  "\n");
+		String str =result.replaceAll("&&",  "\n\n");
 
 		dto =new WikipediaDTO();
 		dto.setContent(str);
@@ -233,7 +222,7 @@ public class WikipediaController extends JFrame {
 
 
 																																			
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		
 		WikipediaController weatherController =new WikipediaController(null);
 		String str =weatherController.test();
@@ -253,5 +242,8 @@ public class WikipediaController extends JFrame {
 				}
 			}
 		});
-    }
+    }*/
+	
+	
+	
 }

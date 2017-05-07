@@ -1,4 +1,4 @@
-package com.mcaronics.rss;
+package com.mcaronics.controller;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -20,13 +20,27 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 
+import com.mcaronics.MacaronicsMain;
 import com.mcaronics.dto.RssDTO;
+import com.mcaronics.rss.RssReader;
 
 public class RssConstroller extends JFrame {
 
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
 
+	private static RssConstroller rssConstroller;
+
+	public static RssConstroller getInstance(){
+		if(rssConstroller==null){
+			rssConstroller= new RssConstroller();
+		}
+		return rssConstroller;
+	}
+	
+	
+	
+	
 	private String[] titles={
 			"속보", "정치", "경제","사회", "국제" , "문화", "연예", "스포츠",
 			"풀영상", "뉴스랭킹","뉴스룸","아침&", "뉴스현장", "정치부회의"
@@ -40,7 +54,7 @@ public class RssConstroller extends JFrame {
 	};
 
 	
-	public static void main(String[] args) {
+/*	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -51,10 +65,10 @@ public class RssConstroller extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 
-	public RssConstroller() {
+	private RssConstroller() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setResizable(false);
@@ -68,8 +82,14 @@ public class RssConstroller extends JFrame {
 		
 				
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(236, 120, 770, 598);
+		tabbedPane.setBounds(179, 72, 827, 625);
 		contentPane.add(tabbedPane);
+		
+		
+		//좌측 메뉴	
+		MacaronicsMain.leftMenu(contentPane, RssConstroller.this, RssConstroller.this);
+			
+		
 		
 		JLabel lblNewLabel = new JLabel("오늘의 뉴스");
 		
@@ -77,7 +97,7 @@ public class RssConstroller extends JFrame {
 		
 		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
 		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(564, 35, 155, 61);
+		lblNewLabel.setBounds(566, 10, 155, 61);
 		contentPane.add(lblNewLabel);
 		
 	
@@ -136,8 +156,6 @@ public class RssConstroller extends JFrame {
           System.out.println("지정된 파일을 찾을 수 없습니다. 파일을 확인하시기 바랍니다.");
       }
 
-		
-		
 		
   }
 	
