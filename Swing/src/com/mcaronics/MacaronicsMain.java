@@ -2,15 +2,21 @@ package com.mcaronics;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -26,13 +32,21 @@ import com.mcaronics.controller.WikipediaController;
 public class MacaronicsMain extends JFrame {
 
 	private JPanel contentPane;
-	static MacaronicsMain frame;
-
+	private static MacaronicsMain frame;
+	
+	public static MacaronicsMain getInstance(){
+		if(frame==null){
+			frame=new MacaronicsMain();
+		}
+		return frame;
+	}
+	
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new MacaronicsMain(null);
+					frame = MacaronicsMain.getInstance();
 				 	
 					//아이콘 설정
 					frame.setTitle("Macaronics 교육 및 소식");
@@ -52,13 +66,7 @@ public class MacaronicsMain extends JFrame {
 
 
 
-	public MacaronicsMain(Object obj) {
-		if(obj!=null){
-			AgriculturaController agri=(AgriculturaController)obj;
-			//((Window) agri).dispose();	
-			
-		}
-		
+	private MacaronicsMain() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -72,19 +80,29 @@ public class MacaronicsMain extends JFrame {
 		
 		
 		leftMenu(contentPane, MacaronicsMain.this, frame);
+		
+
 	}
 	
 	
 	
 	
     public static void leftMenu(JPanel contentPane, Object classNameThis, Object classFrame){
-		
+
+    	
+    	
 		JButton btnHome = new JButton("Home");
 		btnHome.setBackground(new Color(249 , 68 , 90));
 		btnHome.setForeground(new Color(255, 255, 255));
+		btnHome.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				MacaronicsMain macaronicsMain=new MacaronicsMain(classFrame);
+				
+				MacaronicsMain macaronicsMain= MacaronicsMain.getInstance();
+				if(classNameThis==macaronicsMain){
+					return;
+				}
+				iconSetting(macaronicsMain);
 				macaronicsMain.setVisible(true);
 				((Window) classNameThis).dispose();
 			}
@@ -95,6 +113,7 @@ public class MacaronicsMain extends JFrame {
 		
 		
 		JButton btnNewButton = new JButton("날씨");
+		btnNewButton.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnNewButton.setBackground(new Color(12 , 155 , 175));
 		btnNewButton.setForeground(new Color(255, 255, 255));
 		
@@ -102,9 +121,16 @@ public class MacaronicsMain extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				AgriculturaController agriculturaController =AgriculturaController.getInstance();
+				
+				if(classNameThis==agriculturaController){
+					return;
+				}
+				
 				iconSetting(agriculturaController);
 				agriculturaController.setVisible(true);
 				((Window) classNameThis).dispose();
+				
+				
 			}
 		});
 		btnNewButton.setBounds(25, 135, 137, 46);
@@ -112,11 +138,15 @@ public class MacaronicsMain extends JFrame {
 		
 
 		JButton btnWiki = new JButton("위키 검색");
+		btnWiki.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnWiki.setBackground(new Color(12 , 155 , 175));
 		btnWiki.setForeground(new Color(255, 255, 255));
 		btnWiki.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				WikipediaController wiki =WikipediaController.getInstance();
+				if(classNameThis==wiki){
+					return;
+				}
 				iconSetting(wiki);
 				wiki.setVisible(true);
 				((Window)classNameThis).dispose();
@@ -129,12 +159,17 @@ public class MacaronicsMain extends JFrame {
 		
 		
 		JButton javaButton = new JButton("자바 강좌");
+		javaButton.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		javaButton.setBackground(new Color(12 , 155 , 175));
 		javaButton.setForeground(new Color(255, 255, 255));
 		javaButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				JavaEducationController java = JavaEducationController.getInstance();
+				if(classNameThis==java){
+					return;
+				}
+				
 				iconSetting(java);
 				java.setVisible(true);
 				((Window) classNameThis).dispose();
@@ -146,12 +181,17 @@ public class MacaronicsMain extends JFrame {
 		
 		
 		JButton btnJsp = new JButton("웹프로그래밍 강좌");
+		btnJsp.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
+		
 		btnJsp.setBackground(new Color(12 , 155 , 175));
 		btnJsp.setForeground(new Color(255, 255, 255));
 		btnJsp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
 				WebEducationController web = WebEducationController.getInstance();
+				if(classNameThis==web){
+					return;
+				}
 				iconSetting(web);
 				web.setVisible(true);
 				((Window)classNameThis).dispose();
@@ -165,10 +205,14 @@ public class MacaronicsMain extends JFrame {
 		
 		JButton btnSpring = new JButton("스프링 강좌");
 		btnSpring.setBackground(new Color(12 , 155 , 175));
+		btnSpring.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnSpring.setForeground(new Color(255, 255, 255));
 		btnSpring.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SpringEducationController spring= SpringEducationController.getInstance();
+				if(classNameThis==spring){
+					return;
+				}
 				iconSetting(spring);
 				spring.setVisible(true);
 				((Window)classNameThis).dispose();
@@ -179,10 +223,14 @@ public class MacaronicsMain extends JFrame {
 		
 		JButton btnScheduling = new JButton("스케쥴러");
 		btnScheduling.setBackground(new Color(12 , 155 , 175));
+		btnScheduling.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnScheduling.setForeground(new Color(255, 255, 255));
 		btnScheduling.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				MemoCalendarController memo = MemoCalendarController.getInstance();
+				if(classNameThis==memo){
+					return;
+				}
 				iconSetting(memo);
 				memo.setVisible(true);
 				((Window)classNameThis).dispose();
@@ -198,10 +246,14 @@ public class MacaronicsMain extends JFrame {
 		
 		JButton btnNews = new JButton("오늘의 뉴스");
 		btnNews.setBackground(new Color(12 , 155 , 175));
+		btnNews.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnNews.setForeground(new Color(255, 255, 255));
 		btnNews.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RssConstroller rss = RssConstroller.getInstance();
+				if(classNameThis==rss){
+					return;
+				}
 				iconSetting(rss);
 				rss.setVisible(true);
 			   ((Window)classNameThis).dispose();
@@ -213,10 +265,14 @@ public class MacaronicsMain extends JFrame {
 		
 		JButton btnCopyright = new JButton("Copyright");
 		btnCopyright.setBackground(new Color(12 , 155 , 175));
+		btnCopyright.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 13));
 		btnCopyright.setForeground(new Color(255, 255, 255));
 		btnCopyright.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CopyRightController copy =new CopyRightController();
+				CopyRightController copy = CopyRightController.getInstance();
+				if(classNameThis==copy){
+					return;
+				}
 				iconSetting(copy);
 				copy.setVisible(true);
 				((Window)classNameThis).dispose();

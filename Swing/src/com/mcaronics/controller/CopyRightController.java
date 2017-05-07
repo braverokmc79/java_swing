@@ -1,68 +1,40 @@
 package com.mcaronics.controller;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import org.w3c.dom.css.RGBColor;
-
-import com.mcaronics.dto.JavaDATA;
-import com.mcaronics.youtube.YouTubeViewer;
-
-import chrriis.dj.nativeswing.swtimpl.NativeInterface;
-
-import javax.swing.JScrollPane;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
-
-import java.awt.FlowLayout;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
 import java.awt.Color;
-import javax.swing.JTable;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.JTree;
-import javax.swing.JInternalFrame;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import java.awt.Font;
-import javax.swing.UIManager;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
+
+import com.mcaronics.MacaronicsMain;
 
 public class CopyRightController extends JFrame {
 
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CopyRightController frame = new CopyRightController();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private static CopyRightController controller;
+	private JTextPane textPane;
+	private JLabel lblNewLabel_1;
 
-	/**
-	 * Create the frame.
-	 */
-	public CopyRightController() {
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+	public static CopyRightController getInstance(){
+		if(controller==null){
+			controller= new CopyRightController();
+		}
+		return controller;
+	}
+	
+	
+
+	private CopyRightController() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setBounds(100, 100, 1024, 768);
 		contentPane = new JPanel();
@@ -72,58 +44,51 @@ public class CopyRightController extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(187, 97, 803, 621);
-		contentPane.add(scrollPane);
+		//좌측 메뉴	
+		MacaronicsMain.leftMenu(contentPane, CopyRightController.this, CopyRightController.this);
 		
-
-		JList list = new JList(JavaDATA.titles);
-		//list.setBorder(new BevelBorder(FRAMEBITS));
-		list.setFont(new Font("굴림", Font.PLAIN, 20));
-		list.addListSelectionListener(new ListSelectionListener() {
-			
-			@Override
-			public void valueChanged(ListSelectionEvent e) {
-				
-				if(e.getValueIsAdjusting()){
-					int index =list.getSelectedIndex();
-		/*			
-					System.out.println("index : " + list.getSelectedIndex());
-					System.out.println("list.getSelectedValue()  : " +list.getSelectedValue());
-					*/
-					for(int i=0; i<JavaDATA.urls.length; i++){
-						if(index==i){
-							String title=JavaDATA.titles[i];
-							String url =JavaDATA.urls[i];
-							System.out.println(title + " : " +  url);
-							
-							YouTubeViewer youTubeViewer =new YouTubeViewer(title, url);
-							Thread thread =new Thread(youTubeViewer);
-							thread.start();
-						}
-					}
-					
-				}
-			}
-		});
-		
-		
-		
-		scrollPane.setViewportView(list);
-		
-		JLabel lblNewLabel = new JLabel("자바 강좌");
+		JLabel lblNewLabel = new JLabel("CopyRight");
 		lblNewLabel.setForeground(new Color(255, 255,255));
-		lblNewLabel.setFont(new Font("굴림", Font.PLAIN, 33));
+		lblNewLabel.setFont(new Font("한컴 윤고딕 230", Font.PLAIN, 30));
 		lblNewLabel.setBounds(509, 26, 162, 60);
 		contentPane.add(lblNewLabel);
 		
-	
-		JButton button1 = new JButton("New button");
-		button1.setBounds(136, 479, 196, 192);
+		textPane = new JTextPane();
+		textPane.setEditable(false);
+		textPane.setBackground(Color.GRAY);
+		textPane.setForeground(Color.WHITE);
+		textPane.setFont(new Font("Arial", Font.PLAIN, 20));
+		textPane.setBounds(273, 143, 715, 527);
+		contentPane.add(textPane);
 		
-		JButton button2 = new JButton("New button");
-		button2.setBounds(136, 579, 196, 192);
+			
+		StringBuilder builder =new StringBuilder();
+		builder.append("\n\n\n\n\n\n" );
+		builder.append(" ⓒ 2017. Junho Choi all rights reserved. \n\n" );
+		builder.append(" (C) 2017. Junho Choi all rights reserved. \n\n" );
+		builder.append(" Copyright 2017. Junho Choi all rights reserved. \n\n" );
+		builder.append(" Copyright 2017. Junho Choi All pictures cannot be copied without permission. \n\n" );
+		textPane.setText(builder.toString());
 		
+		
+		contentPane.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setBounds(420, 22, 77, 77);
+		File file =new File("icon.png");
+		ImageIcon icon=null;
+		try {
+			icon = new ImageIcon(ImageIO.read(file));
+		
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Image imageSrc=icon.getImage();
+		Image imageNew =imageSrc.getScaledInstance(50, 50, Image.SCALE_AREA_AVERAGING);
+		icon=new ImageIcon(imageNew);
+		lblNewLabel_1.setIcon(icon);
+		
+		contentPane.add(lblNewLabel_1);
 	}
 }
 

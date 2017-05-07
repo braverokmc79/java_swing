@@ -2,6 +2,9 @@ package com.mcaronics.controller;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Frame;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.Printable;
@@ -30,6 +33,7 @@ import org.jsoup.select.Elements;
 import com.mcaronics.MacaronicsMain;
 import com.mcaronics.common.PDFWebViewer;
 import com.mcaronics.common.PrintComponent;
+import com.mcaronics.youtube.YouTubeViewer;
 
 public class AgriculturaController extends JFrame {
 
@@ -103,10 +107,23 @@ public class AgriculturaController extends JFrame {
 				String hh = String.valueOf(new DecimalFormat("00").format(cal.get(Calendar.HOUR_OF_DAY)));
 				String ydmh = year + month + day + hh;
 
-				new PDFWebViewer().openURL(
-						"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
+				//new PDFWebViewer().openURL(
+			//			"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
+				
+//				YouTubeViewer youTubeViewer =new YouTubeViewer("수원서둔 관측", 
+//						"http://weather.rda.go.kr/weather/observationGraph.jsp?time=" + ydmh + "&stncode=441707D001");
+//				
+				YouTubeViewer youTubeViewer =new YouTubeViewer("수원서둔 관측", 
+						"http://www.daum.net/");
+				
+				Thread thread =new Thread(youTubeViewer);
+				thread.start();
+				
+				
 			}
 		});
+		
+		
 		btnNewButton.setBounds(221, 21, 118, 45);
 		contentPane.add(btnNewButton);
 		
@@ -119,6 +136,9 @@ public class AgriculturaController extends JFrame {
 				
 				//프린트 미리보기
 				PrintSample print=new PrintSample(agTable);
+				Toolkit toolkit = Toolkit.getDefaultToolkit();
+				Image img = toolkit.getImage("icon.png");
+				print.setIconImage(img);
 				//print.setTable(agTable);
 				print.onPrintPreview();
 				//print.setVisible(true);

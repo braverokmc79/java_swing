@@ -183,7 +183,7 @@ public class WikipediaController extends JFrame {
 			
 			if(txtS==null){
 				//doc = Jsoup.connect("https://ko.wikipedia.org/").get();
-				System.out.println(" 검색 단어 없음");
+				//System.out.println(" 검색 단어 없음");
 			}else{
 				System.out.println(" 검색 ");
 				doc = Jsoup.connect("https://ko.wikipedia.org/wiki/"+txtS).get();
