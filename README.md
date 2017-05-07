@@ -19,7 +19,7 @@
 
 <p>&nbsp;</p>
 
-<h1>Home 화면 첫번째 탭 화면</h1>
+<h1>Home 화면 - 첫번째 탭 화면</h1>
 
 <p><a href="https://1.bp.blogspot.com/-Su4m_qigKc8/WQ8vO107d_I/AAAAAAAADRM/WUXiBA3O-3wTXuC3yY-T2DSFy2EBHEg-gCLcB/s1600/%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580%2B1.png" target="_blank"><img alt="" src="https://1.bp.blogspot.com/-Su4m_qigKc8/WQ8vO107d_I/AAAAAAAADRM/WUXiBA3O-3wTXuC3yY-T2DSFy2EBHEg-gCLcB/s1600/%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580%2B1.png" style="height:527px; width:700px" /></a></p>
 
@@ -27,7 +27,7 @@
 
 <p>&nbsp;</p>
 
-<h1>Home 화면 두번째 탭 화면</h1>
+<h1>Home 화면 - 두번째 탭 화면</h1>
 
 <p><a href="https://1.bp.blogspot.com/-ZKV8O0KLNf0/WQ8vQaaFoeI/AAAAAAAADRc/-E-sDYxnjWMI7YmlXxcHSQX63lMwFizsQCLcB/s1600/%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580%2B2.png" target="_blank"><img alt="" src="https://1.bp.blogspot.com/-ZKV8O0KLNf0/WQ8vQaaFoeI/AAAAAAAADRc/-E-sDYxnjWMI7YmlXxcHSQX63lMwFizsQCLcB/s1600/%25EC%259D%25B4%25EB%25AF%25B8%25EC%25A7%2580%2B2.png" style="height:527px; width:700px" /></a></p>
 
