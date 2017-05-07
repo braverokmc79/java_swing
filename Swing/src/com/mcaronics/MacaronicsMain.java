@@ -114,7 +114,7 @@ public class MacaronicsMain extends JFrame {
 		button_5.setBounds(25, 181, 137, 31);
 		contentPane.add(button_5);
 		
-		JButton button_6 = new JButton("뉴스");
+		JButton button_6 = new JButton("오늘의 뉴스");
 		button_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -124,7 +124,7 @@ public class MacaronicsMain extends JFrame {
 		button_6.setBounds(25, 534, 137, 46);
 		contentPane.add(button_6);
 		
-		JButton btnNewButton_1 = new JButton("RSS");
+		JButton btnNewButton_1 = new JButton("Copyright");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}

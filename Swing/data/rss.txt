@@ -1,0 +1,14 @@
+http://fs.jtbc.joins.com/RSS/newsflash.xml
+http://fs.jtbc.joins.com/RSS/politics.xml
+http://fs.jtbc.joins.com/RSS/economy.xml
+http://fs.jtbc.joins.com/RSS/society.xml
+http://fs.jtbc.joins.com/RSS/international.xml
+http://fs.jtbc.joins.com/RSS/culture.xml
+http://fs.jtbc.joins.com/RSS/entertainment.xml
+http://fs.jtbc.joins.com/RSS/sports.xml
+http://fs.jtbc.joins.com/RSS/fullvideo.xml
+http://fs.jtbc.joins.com/RSS/newsrank.xml
+http://fs.jtbc.joins.com/RSS/newsroom.xml
+http://fs.jtbc.joins.com/RSS/morningand.xml
+http://fs.jtbc.joins.com/RSS/newssite.xml
+http://fs.jtbc.joins.com/RSS/politicaldesk.xml
