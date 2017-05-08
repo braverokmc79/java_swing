@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionListener;
 import org.w3c.dom.css.RGBColor;
 
 import com.mcaronics.MacaronicsMain;
+import com.mcaronics.common.PDFWebViewer;
 import com.mcaronics.dto.JavaDATA;
 import com.mcaronics.dto.SpringDATA;
 import com.mcaronics.dto.WebDATA;
@@ -108,10 +109,11 @@ public class SpringEducationController extends JFrame {
 							String title=SpringDATA.titles[i];
 							String url =SpringDATA.urls[i];
 							//System.out.println(title + " : " +  url);
-							
-							YouTubeViewer youTubeViewer =new YouTubeViewer(title, url);
+							new PDFWebViewer().openURL(url);
+					/*		YouTubeViewer youTubeViewer =new YouTubeViewer(title, url);
 							Thread thread =new Thread(youTubeViewer);
-							thread.start();
+							thread.start();*/
+							
 						}
 					}
 					

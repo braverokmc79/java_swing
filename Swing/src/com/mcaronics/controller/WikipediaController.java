@@ -1,7 +1,6 @@
 package com.mcaronics.controller;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +8,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.Vector;
+import java.util.regex.PatternSyntaxException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,9 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -28,23 +27,14 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.mcaronics.MacaronicsMain;
+import com.mcaronics.common.PDFWebViewer;
 import com.mcaronics.dto.WikipediaDTO;
-import javax.swing.JTextField;
 
 public class WikipediaController extends JFrame {
 
-	private static WikipediaController wikipediaController ;
-
-	public static WikipediaController getInstance(){
-		if(wikipediaController==null){
-			wikipediaController=new WikipediaController();
-		}
-		return wikipediaController;
-	}
-
 	static WikipediaController frame;
 	
-	
+	Document doc;
 	private JPanel contentPane;
 
 	Vector<Object> items;
@@ -58,7 +48,18 @@ public class WikipediaController extends JFrame {
 	private WikipediaDTO dto;
 	private JTextField txtSearch;
 	private String txtS;
+	private boolean EN_AND_KO=false;
 	
+	
+	
+	private static WikipediaController wikipediaController ;
+
+	public static WikipediaController getInstance(){
+		if(wikipediaController==null){
+			wikipediaController=new WikipediaController();
+		}
+		return wikipediaController;
+	}
 	
 	private WikipediaController() {
 		
@@ -86,9 +87,6 @@ public class WikipediaController extends JFrame {
 		textArea.setWrapStyleWord(true);            // 끊임없이 글을 기능 활성화 단행하다
 		
 		scrollPane.setViewportView(textArea);
-
-		// 정보 가져오기
-		tableShow();
 
 		
 		//좌측 메뉴	
@@ -129,52 +127,45 @@ public class WikipediaController extends JFrame {
 					
 					test();
 					textArea.setText(dto.getContent());
+					if(EN_AND_KO){
+						//검색 단어가 영어이면 번역
+						int confirm =JOptionPane.showConfirmDialog(WikipediaController.this, 
+								"네이버 번역기 창으로 보시겠습니까?");
+						
+						if(confirm==0){
+							System.out.println("네이버 이동");
+							String txt0 ="";
+							if(textArea.getText().length()>200){
+								txt0=textArea.getText().substring(0, 200);	
+							}else{
+								txt0=textArea.getText();
+							}
+							
+							String txt1=txt0.replaceAll(" ", "%20");
+							String txt2=txt1.replaceAll("\n", "%20");
+							String url ="http://translate.naver.com/#/en/ko/"+txt2;
+							//System.out.println(url);
+							new PDFWebViewer().openURL(url);
+						}else{
+							System.out.println("그냥 본다");
+						}
+						
+					}
+					
 				}else{
 					
 					JOptionPane.showMessageDialog(WikipediaController.this, "검색할 단어를 입력 해주세요");
 					txtSearch.setFocusable(true);
-				}
-				
+				}		
 			}
 		});
 		btnSearch.setBounds(435, 21, 103, 45);
 		contentPane.add(btnSearch);
-		
-		
 	}
 
-	
-	public void tableShow(){
-		// 정보 가져오기
-		test();
-		
-		String txt=textArea.getText();
-		if(txt!=null && txt.trim().length() >0){
-		
-			Vector<Object> ii=new Vector<Object>();
-			Vector<Object> row=new Vector<Object>();
-			row.add(txt);
-			ii.add(row);
-			
-			Vector<Object> col = new Vector<Object>();
-			if(txtSearch.getText()!=null && txtSearch.getText().length() > 0){
-				col.add(txtSearch.getText());
-				
-			}else{
-				col.add("Blank");
-			}
-					
-			DefaultTableModel model=new DefaultTableModel(ii, col);
-			agTable = new JTable(0,1);
-			agTable.setRowHeight(700);
-			agTable.setAutoResizeMode(JTable.ABORT);
-			agTable.setModel(model);	
-		}	
-	}
-	
+
 	
 	public String test() {
-		Document doc;
 
 		String result = "";
 
@@ -184,8 +175,30 @@ public class WikipediaController extends JFrame {
 				//doc = Jsoup.connect("https://ko.wikipedia.org/").get();
 				//System.out.println(" 검색 단어 없음");
 			}else{
-				System.out.println(" 검색 ");
-				doc = Jsoup.connect("https://ko.wikipedia.org/wiki/"+txtS).get();
+				System.out.println(" 검색 " +txtS);
+					
+					//한글인지 검색
+					try {
+						//String nickname = "닉Name좋아요123";
+						String nickname = txtS;
+	
+						if(nickname.matches(".*[ㄱ-ㅎㅏ-ㅣ가-힣]+.*")) {
+						// 한글이 포함된 문자열
+							doc = Jsoup.connect("https://ko.wikipedia.org/wiki/"+txtS).get();
+							EN_AND_KO=false;
+						} else {
+						// 한글이 포함되지 않은 문자열
+						
+							doc = Jsoup.connect("https://wikipedia.org/wiki/"+txtS).get();
+							EN_AND_KO=true;
+						}
+					
+					} catch (PatternSyntaxException e) {
+						// 정규식에 오류가 있는 경우에 대한 처리
+						System.err.println("An Exception Occured");
+						e.printStackTrace();
+					}
+		
 				
 				Elements links = doc.select("p");
 				for (Element link : links) {
@@ -196,12 +209,8 @@ public class WikipediaController extends JFrame {
 				parSing(result);
 			}
 			
-			
-			// doc = Jsoup.connect("https://ko.wikipedia.org/wiki/송승헌").get();
-		//	result = doc.title() + "\n\n";
-			
-
 		}catch (IOException e) {
+			textArea.setText("찾는 단언가 없습니다.");
 			e.printStackTrace();
 		}
 
